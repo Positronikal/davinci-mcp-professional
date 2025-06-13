@@ -1,135 +1,108 @@
 @echo off
-REM Quick Start Script for DaVinci Resolve MCP Server (Windows Version)
-REM This script sets up the environment and starts the MCP server
+REM Quick Start Script for DaVinci Resolve MCP Server (Windows). This
+REM script sets up the environment and starts the MCP server. Ctrl-C
+REM to shutdown MCP server.
 
 echo ==============================================
-echo   DaVinci Resolve MCP Server - Quick Start   
+echo   DaVinci Resolve MCP Server - Quick Start
 echo ==============================================
 echo.
 
-REM Get the script directory and root directory (using absolute paths)
-set SCRIPT_DIR=%~dp0
-set ROOT_DIR=%SCRIPT_DIR%..
+REM Set script, root, and venv path vars:
+set SCRIPT_DIR=D:\bin\DaVinci\davinci-resolve-mcp\scripts
+set ROOT_DIR=D:\bin\DaVinci\davinci-resolve-mcp
 echo Project root: %ROOT_DIR%
+echo.
+set RESOLVE_MCP_SERVER=%ROOT_DIR%\src\resolve_mcp_server.py
 
-set VENV_DIR=%ROOT_DIR%venv
-set RESOLVE_MCP_SERVER=%ROOT_DIR%src\resolve_mcp_server.py
+REM User launch DaVinci Resolve:
+echo Launch DaVinci Resolve if it isn't already running before continuing
+echo the MCP server launch.
+echo.
+pause
 
-REM Check if Python is installed
-where python >nul 2>nul
-if %ERRORLEVEL% NEQ 0 (
-    echo Python is not installed or not in your PATH
-    echo Please install Python 3.6+ from https://www.python.org/downloads/
-    echo Make sure to check "Add Python to PATH" during installation
-    pause
-    exit /b 1
-)
-
-REM Check if Node.js/npm is installed (warning only)
-where npm >nul 2>nul
-if %ERRORLEVEL% NEQ 0 (
-    echo WARNING: Node.js/npm is not installed or not in your PATH.
-    echo This might cause some features to not work properly.
-    echo You can install Node.js from https://nodejs.org/
-    echo Make sure to check the option to add to PATH during installation.
-    pause
-)
-
-REM Check if DaVinci Resolve is running - fixed process detection
-echo Checking if DaVinci Resolve is running...
-
-REM Simple check for Resolve process - avoid complex piping that causes syntax errors
+REM Simple check for Resolve process:
 tasklist /FI "IMAGENAME eq Resolve.exe" 2>nul | find /i "Resolve.exe" >nul
-if not errorlevel 1 (
-    echo DaVinci Resolve is running, continuing...
-    goto :resolve_running
-)
+if %ERRORLEVEL% NEQ 0 goto :resolve_not_running
 
-echo DaVinci Resolve is not running
-echo Please start DaVinci Resolve before running this script
+echo DaVinci Resolve is running, continuing...
+echo.
+goto :resolve_running
 
-set /p START_RESOLVE="Would you like to try starting DaVinci Resolve now? (y/n): "
-if /i not "%START_RESOLVE%"=="y" (
-    echo DaVinci Resolve must be running for the MCP server to function properly
-    pause
-    exit /b 1
-)
-
-REM Try to start DaVinci Resolve
-echo Attempting to start DaVinci Resolve...
-    
-if exist "C:\Program Files\Blackmagic Design\DaVinci Resolve\Resolve.exe" (
-    echo Starting DaVinci Resolve from the correct path...
-    start "" "C:\Program Files\Blackmagic Design\DaVinci Resolve\Resolve.exe"
-    echo Waiting for DaVinci Resolve to start...
-    timeout /t 15 /nobreak >nul
-    echo DaVinci Resolve should be running now.
-) else (
-    echo Could not find DaVinci Resolve executable at:
-    echo C:\Program Files\Blackmagic Design\DaVinci Resolve\Resolve.exe
-    echo Please start DaVinci Resolve manually
-    pause
-    exit /b 1
-)
+:resolve_not_running
+echo ERROR: DaVinci Resolve is not running...
+echo MCP launch will terminate.
+pause
+exit /b 1
 
 :resolve_running
-REM Create virtual environment if it doesn't exist
-if not exist "%VENV_DIR%\Scripts\python.exe" (
-    echo Creating Python virtual environment...
-    python -m venv "%VENV_DIR%"
-    
-    if %ERRORLEVEL% NEQ 0 (
-        echo Failed to create virtual environment
-        pause
-        exit /b 1
-    )
-)
-
-REM Check if requirements.txt exists
-if not exist "%ROOT_DIR%\requirements.txt" (
-    echo Error: Could not find requirements.txt at %ROOT_DIR%\requirements.txt
-    pause
-    exit /b 1
-)
-
-REM Install dependencies from requirements.txt
-echo Installing dependencies from requirements.txt...
-call "%VENV_DIR%\Scripts\pip" install -r "%ROOT_DIR%\requirements.txt"
-
-REM Check if MCP CLI is installed
-if not exist "%VENV_DIR%\Scripts\mcp.exe" (
-    echo MCP command not found. Installing MCP[cli]...
-    call "%VENV_DIR%\Scripts\pip" install "mcp[cli]"
-    
-    if %ERRORLEVEL% NEQ 0 (
-        echo Failed to install MCP. Please check your internet connection and try again.
-        pause
-        exit /b 1
-    )
-)
-
-REM Set environment variables
+REM Set envars for the session:
 echo Setting environment variables...
-set RESOLVE_SCRIPT_API=C:\ProgramData\Blackmagic Design\DaVinci Resolve\Support\Developer\Scripting
-set RESOLVE_SCRIPT_LIB=C:\Program Files\Blackmagic Design\DaVinci Resolve\fusionscript.dll
+echo.
+set RESOLVE_SCRIPT_API="C:\ProgramData\Blackmagic Design\DaVinci Resolve\Support\Developer\Scripting"
+set RESOLVE_SCRIPT_LIB="C:\Program Files\Blackmagic Design\DaVinci Resolve\fusionscript.dll"
 set PYTHONPATH=%PYTHONPATH%;%RESOLVE_SCRIPT_API%\Modules
 
-REM Save environment variables for user
-setx RESOLVE_SCRIPT_API "%RESOLVE_SCRIPT_API%" >nul
-setx RESOLVE_SCRIPT_LIB "%RESOLVE_SCRIPT_LIB%" >nul
-setx PYTHONPATH "%RESOLVE_SCRIPT_API%\Modules" >nul
+REM Uncomment to permanently save envars:
+::setx RESOLVE_SCRIPT_API "%RESOLVE_SCRIPT_API%" >nul
+::setx RESOLVE_SCRIPT_LIB "%RESOLVE_SCRIPT_LIB%" >nul
+::setx PYTHONPATH "%RESOLVE_SCRIPT_API%\Modules" >nul
 
-REM Check if server script exists
+REM Check if server script exists:
+echo Checking for MCP server script...
+echo.
 if not exist "%RESOLVE_MCP_SERVER%" (
-    echo Error: Server script not found at %RESOLVE_MCP_SERVER%
+    echo ERROR: Server script not found at %RESOLVE_MCP_SERVER%!
+    echo MCP launch will terminate.
     pause
     exit /b 1
+)
+
+REM Check if %ROOT_DIR% is uv initialized and install mcp[cli]:
+echo Checking uv initialization...
+echo.
+if not exist "%ROOT_DIR%" (
+    echo ERROR: Root directory %ROOT_DIR% does not exist!
+    echo MCP launch will terminate.
+    pause
+    exit /b 1
+)
+cd %ROOT_DIR%
+if not exist "pyproject.toml" (
+    echo uv project not initialized. Initializing...
+    uv init
+    if %ERRORLEVEL% NEQ 0 (
+        echo ERROR: uv environment did not initialize properly!
+        pause
+        exit /b 1
+) else (
+    echo uv project is initialized.
+    echo.
+)
+
+echo Checking for mcp[cli] installation...
+echo.
+uv list | findstr /i "mcp" >nul
+if %ERRORLEVEL% NEQ 0 (
+    echo mcp[cli] not found. Installing...
+    echo.
+    uv add "mcp[cli]"
+    if %ERRORLEVEL% NEQ 0 (
+        echo ERROR: Failed to install mcp[cli]...
+        echo MCP launch will terminate.
+        exit /b 1
+    )
+) else (
+    echo mcp[cli] is already installed.
+    echo.
 )
 
 REM Start the server
-echo Starting DaVinci Resolve MCP Server...
-echo Using server script: %RESOLVE_MCP_SERVER%
+echo Starting DaVinci Resolve MCP Server. Ctrl-C to quit.
 echo.
-
-cd "%ROOT_DIR%"
-"%VENV_DIR%\Scripts\mcp" dev "%RESOLVE_MCP_SERVER%"
+uv run mcp
+if %ERRORLEVEL% NEQ 0 (
+    echo ERROR: Failed to launch MCP server.
+    pause
+    exit /b 1
+)

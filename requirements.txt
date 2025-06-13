@@ -11,4 +11,4 @@ psutil>=5.9.0
 jsonrpcserver>=5.0.0
 
 # Git repository dependencies
-git+https://github.com/modelcontextprotocol/python-sdk.git 
+git+https://github.com/modelcontextprotocol/python-sdk.git
