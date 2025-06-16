@@ -1,6 +1,6 @@
 [project]
-name = "davinci-resolve-mcp"
-version = "2.0.0"
+name = "davinci-mcp-professional"
+version = "2.1.0"
 description = "Model Context Protocol server for DaVinci Resolve integration"
 readme = "README.md"
 license = { text = "MIT" }

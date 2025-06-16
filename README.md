@@ -1,17 +1,18 @@
-# DaVinci Resolve MCP Server v2.0
+# DaVinci MCP Professional v2.1.0
 
-A modern, clean implementation of a Model Context Protocol server for DaVinci Resolve integration.
+A modern, professional implementation of a Model Context Protocol server for DaVinci Resolve integration.
 
-## What's New in v2.0
+## What Makes This Professional
 
-This is a complete rewrite of the original DaVinci Resolve MCP server with:
+This is a complete architectural rewrite and cleanup of existing DaVinci Resolve MCP implementations:
 
 - **Clean Architecture**: Proper separation of concerns between MCP protocol and DaVinci Resolve API
-- **Modern Python**: Uses current best practices with type hints, async/await, and proper error handling
+- **Modern Python**: Uses current best practices with type hints, async/await, and comprehensive error handling
 - **Simplified Setup**: Single command installation with automatic dependency management
-- **Better Error Handling**: Clear error messages and graceful failure handling
+- **Windows Compatible**: Proper encoding handling and console output for Windows environments
 - **Standardized Dependencies**: Uses `uv` for fast, reliable dependency management
 - **Comprehensive Testing**: Built-in test suite to verify functionality
+- **Production Ready**: Clean codebase suitable for professional environments
 
 ## Quick Start
 
@@ -25,37 +26,51 @@ This is a complete rewrite of the original DaVinci Resolve MCP server with:
 
 1. **Clone or navigate to the project directory**
    ```bash
-   cd /path/to/davinci-resolve-mcp
+   cd /path/to/davinci-mcp-professional
    ```
 
 2. **Run the setup script**
    ```bash
-   python setup_new.py
+   python setup.py
    ```
    
    This will:
    - Install the `uv` package manager if needed
    - Set up a virtual environment
    - Install all dependencies
-   - Create MCP configuration files for Cursor
+   - Create MCP configuration files for Cursor and Claude Desktop
 
 3. **Test the installation**
    ```bash
-   python test_new.py
+   python test.py
    ```
 
-4. **Start the server**
+4. **Start the server interactively**
    ```bash
-   python main_new.py
+   python main.py
    ```
 
-### Usage with Cursor
+### Usage with AI Assistants
 
-The setup script automatically configures Cursor to use the new MCP server. After setup:
+#### With Claude Desktop
+Update your `claude_desktop_config.json`:
+```json
+{
+  "mcpServers": {
+    "davinci-resolve": {
+      "name": "DaVinci MCP Professional",
+      "command": "/path/to/davinci-mcp-professional/.venv/Scripts/python.exe",
+      "args": ["/path/to/davinci-mcp-professional/mcp_server.py"]
+    }
+  }
+}
+```
+
+#### With Cursor
+The setup script automatically configures Cursor. After setup:
 
 1. Start DaVinci Resolve
-2. Start the MCP server (`python main_new.py`)
-3. Open Cursor - the DaVinci Resolve MCP should be available
+2. Open Cursor - the DaVinci Resolve MCP should be available
 
 You can then use commands like:
 - "What version of DaVinci Resolve is running?"
@@ -66,7 +81,7 @@ You can then use commands like:
 ## Project Structure
 
 ```
-src_new/davinci_mcp/
+src/davinci_mcp/
 ├── __init__.py          # Package initialization
 ├── cli.py               # Command line interface
 ├── server.py            # Main MCP server implementation
@@ -128,13 +143,13 @@ src_new/davinci_mcp/
 ### Running Tests
 
 ```bash
-python test_new.py
+python test.py
 ```
 
 ### Debug Mode
 
 ```bash
-python main_new.py --debug
+python main.py --debug
 ```
 
 ## Troubleshooting
@@ -159,35 +174,24 @@ The server requires DaVinci Resolve to be running before starting:
 
 If you get Python import errors:
 
-1. Make sure you ran `python setup_new.py` first
+1. Make sure you ran `python setup.py` first
 2. Check that the virtual environment was created (`.venv` directory should exist)
 3. Try running `uv pip install -e .` manually
 
-## Comparison with v1.x
+## Architecture Highlights
 
-| Feature | v1.x | v2.0 |
-|---------|------|------|
-| Architecture | Monolithic | Modular |
-| Error Handling | Basic | Comprehensive |
-| Setup | Complex scripts | Single command |
-| Dependencies | Mixed (pip/uv/conda) | Standardized (uv) |
-| Testing | None | Built-in test suite |
-| Code Quality | Mixed | Modern Python practices |
-| Documentation | Scattered | Centralized |
+This implementation emphasizes:
 
-## Migration from v1.x
-
-The new v2.0 implementation is installed alongside the original in the `src_new/` directory. This allows you to:
-
-1. Test the new implementation without affecting the old one
-2. Compare functionality between versions
-3. Gradually migrate custom features
-
-To switch permanently to v2.0:
-1. Verify everything works with `python test_new.py`
-2. Update any custom scripts to use `main_new.py`
-3. Optionally remove the old `src/` directory when satisfied
+- **Reliability**: Comprehensive error handling and graceful failure modes
+- **Maintainability**: Clean separation of concerns and modular design
+- **Performance**: Efficient async/await patterns and minimal overhead
+- **Compatibility**: Cross-platform support with Windows-specific optimizations
+- **Professional Standards**: Proper logging, testing, and documentation
 
 ## License
 
 MIT License - see LICENSE file for details.
+
+## About
+
+DaVinci MCP Professional represents a complete architectural transformation from experimental MCP implementations to production-ready professional software suitable for critical workflows.

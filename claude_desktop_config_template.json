@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "davinci-resolve": {
+      "name": "DaVinci MCP Professional v2.1.0",
+      "command": "D:\\bin\\DaVinci\\davinci-mcp-professional\\.venv\\Scripts\\python.exe",
+      "args": ["D:\\bin\\DaVinci\\davinci-mcp-professional\\mcp_server.py"]
+    }
+  }
+}

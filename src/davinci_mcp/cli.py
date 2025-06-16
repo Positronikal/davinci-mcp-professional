@@ -106,7 +106,7 @@ def main(debug: bool = False, skip_checks: bool = False) -> None:
     
     # Print banner
     click.echo(f"\n{Fore.MAGENTA}{'='*60}{Style.RESET_ALL}")
-    click.echo(f"{Fore.MAGENTA}  DaVinci Resolve MCP Server v2.0.0{Style.RESET_ALL}")
+    click.echo(f"{Fore.MAGENTA}  DaVinci MCP Professional v2.1.0{Style.RESET_ALL}")
     click.echo(f"{Fore.MAGENTA}{'='*60}{Style.RESET_ALL}\n")
     
     # Check prerequisites unless skipped

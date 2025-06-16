@@ -137,7 +137,7 @@ def test_resolve_client():
 def main():
     """Run all tests."""
     print("="*60)
-    print("  DaVinci Resolve MCP v2.0 Test Suite")
+    print("  DaVinci MCP Professional v2.1.0 Test Suite")
     print("="*60)
     
     tests = [
