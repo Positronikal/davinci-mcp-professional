@@ -9,9 +9,9 @@ import sys
 import os
 from pathlib import Path
 
-# Add the src_new directory to Python path  
+# Add the src directory to Python path  
 current_dir = Path(__file__).parent
-src_dir = current_dir / "src_new"
+src_dir = current_dir / "src"
 sys.path.insert(0, str(src_dir))
 
 from davinci_mcp.server import DaVinciMCPServer

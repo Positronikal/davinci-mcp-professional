@@ -27,11 +27,11 @@ if not hasattr(sys, 'real_prefix') and not (hasattr(sys, 'base_prefix') and sys.
         sys.exit(result.returncode)
     else:
         print(f"Virtual environment not found at {venv_dir}")
-        print("Please run 'python setup_new.py' first")
+        print("Please run 'python setup.py' first")
         sys.exit(1)
 
-# Add the src_new directory to Python path
-src_dir = current_dir / "src_new" 
+# Add the src directory to Python path
+src_dir = current_dir / "src" 
 sys.path.insert(0, str(src_dir))
 
 from davinci_mcp.utils import (

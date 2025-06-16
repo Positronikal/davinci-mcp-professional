@@ -1,1 +1,0 @@
-"D:\\bin\\DaVinci\\davinci-resolve-mcp\\src\\resolve_mcp_server.py"
