@@ -1,7 +1,82 @@
 [project]
 name = "davinci-resolve-mcp"
-version = "0.1.0"
-description = "Add your description here"
+version = "2.0.0"
+description = "Model Context Protocol server for DaVinci Resolve integration"
 readme = "README.md"
-requires-python = ">=3.13"
-dependencies = []
+license = { text = "MIT" }
+authors = [
+    { name = "Samuel Gursky", email = "samgursky@gmail.com" },
+    { name = "Hoyt", email = "hoyt@example.com" }
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "mcp>=1.0.0",
+    "anyio>=4.0.0",
+    "httpx>=0.25.0",
+    "pydantic>=2.0.0",
+    "click>=8.0.0",
+    "colorama>=0.4.6",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "mypy>=1.5.0",
+    "ruff>=0.1.0",
+]
+
+[project.scripts]
+davinci-mcp = "davinci_mcp.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/samuelgursky/davinci-resolve-mcp"
+Repository = "https://github.com/samuelgursky/davinci-resolve-mcp"
+Issues = "https://github.com/samuelgursky/davinci-resolve-mcp/issues"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src_new/davinci_mcp"]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "mypy>=1.5.0",
+    "ruff>=0.1.0",
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py39", "py310", "py311", "py312"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+check_untyped_defs = true
+
+[tool.ruff]
+line-length = 88
+target-version = "py39"
