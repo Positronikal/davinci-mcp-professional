@@ -1,5 +1,5 @@
 # DaVinci MCP Professional v2.1.0
-A modern, professional implementation of a Model Context Protocol server for DaVinci Resolve integration.
+A modern, professional implementation of a Model Context Protocol server for DaVinci Resolve integration. This project is a hard/project fork from the excellent work done by @samuelgursky at https://github.com/samuelgursky/davinci-resolve-mcp. It's an independent project now due to major overhaul and restructuring making it incompatible with the original repo. DaVinci MCP Professional is a fully enterprise-grade implementation of an MCP specifically designed expose the full range of functionality either DaVinci Resolve or DaVinci Resolve Studio to an MCP client. Supported clients include both Claude Desktop (preferred) or Cursor.
 
 ## What Makes This Professional
 This is a complete architectural rewrite and cleanup of existing DaVinci Resolve MCP implementations:
