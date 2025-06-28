@@ -95,4 +95,14 @@ logs/*
 *_backup/
 
 # Cursor
-.cursor/ 
+.cursor/
+
+# DXT Extension Build Artifacts
+lib/
+*.dxt
+build-dxt.ps1
+build-dxt.bat
+setup_dxt.py
+DXT_README.md
+requirements.txt
+.dxtignore
