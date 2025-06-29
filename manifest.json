@@ -2,7 +2,7 @@
   "dxt_version": "0.1",
   "name": "davinci-mcp-professional",
   "display_name": "DaVinci MCP Professional",
-  "version": "2.1.0",
+  "version": "2.2.1",
   "description": "Enterprise-grade MCP exposing full DaVinci Resolve/Studio functionality to Claude Desktop. Integrates Blackmagic Design's popular video production suite (editing, color correction, VFX, motion graphics, audio post) used by Hollywood studios to YouTubers. Enables AI-assisted video production workflows for millions of professional and amateur creators worldwide.",
   "long_description": "DaVinci MCP Professional is a fully enterprise-grade implementation of a Model Context Protocol server specifically designed to expose the full range of functionality of either DaVinci Resolve or DaVinci Resolve Studio to MCP clients. This professional-grade integration enables AI-powered assistance for video editing, color correction, visual effects, motion graphics, and audio post-production workflows. Built with modern Python practices, comprehensive error handling, and cross-platform compatibility, it serves both Hollywood professionals and amateur content creators.",
   "author": {
@@ -45,7 +45,7 @@
       "platform_overrides": {
         "win32": {
           "env": {
-            "PYTHONPATH": "${__dirname};${__dirname}/lib",
+            "PYTHONPATH": "${__dirname};${__dirname}/lib;C:\\ProgramData\\Blackmagic Design\\DaVinci Resolve\\Support\\Developer\\Scripting\\Modules",
             "PYTHONIOENCODING": "utf-8"
           }
         },

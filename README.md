@@ -1,5 +1,24 @@
-# DaVinci MCP Professional v2.1.0
-A modern, professional implementation of a Model Context Protocol server for DaVinci Resolve integration. This project is a hard/project fork from the excellent work done by @samuelgursky at https://github.com/samuelgursky/davinci-resolve-mcp. It's an independent project now due to major overhaul and restructuring making it incompatible with the original repo. DaVinci MCP Professional is a fully enterprise-grade implementation of an MCP specifically designed expose the full range of functionality either DaVinci Resolve or DaVinci Resolve Studio to an MCP client. Supported clients include both Claude Desktop (preferred) or Cursor.
+# DaVinci MCP Professional v2.2.1
+A modern, professional implementation of a Model Context Protocol server for DaVinci Resolve integration. This project is a hard/project fork from the excellent work done by @samuelgursky at https://github.com/samuelgursky/davinci-resolve-mcp. It's an independent project now due to major overhaul and restructuring making it incompatible with the original repo. DaVinci MCP Professional is a fully enterprise-grade implementation of an MCP specifically designed to expose the full range of functionality of either DaVinci Resolve or DaVinci Resolve Studio to MCP clients. Supported clients include both Claude Desktop (preferred) or Cursor.
+
+## Installation Options
+
+### 🚀 One-Click Installation (Recommended)
+DaVinci MCP Professional is available as a Desktop Extension (DXT) for easy installation:
+
+1. **Download** the latest `.dxt` file from [Releases](https://github.com/Positronikal/davinci-mcp-professional/releases)
+2. **Open Claude Desktop** and go to Settings > Extensions
+3. **Drag and drop** the `.dxt` file to install
+4. **Configure** any optional settings (DaVinci Resolve path, debug mode)
+5. **Start DaVinci Resolve** and begin using AI-assisted video editing!
+
+### ⚙️ Manual Installation
+For developers and advanced users who prefer manual setup:
+
+1. **Clone the repository**
+2. **Install dependencies**: `pip install -r requirements.txt`
+3. **Configure Claude Desktop**: Add server configuration to `claude_desktop_config.json`
+4. **See USING.md** for detailed manual setup instructions
 
 ## What Makes This Professional
 This is a complete architectural rewrite and cleanup of existing DaVinci Resolve MCP implementations:
