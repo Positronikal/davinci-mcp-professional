@@ -17,10 +17,10 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Install dependencies (pip for now)
+    - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install -e ".[dev,security]"
 
     # - name: Install dependencies with uv (for future use)
     #   run: |
@@ -38,22 +38,18 @@ jobs:
 
     - name: Lint (optional)
       run: |
-        pip install flake8
         flake8 .
 
     - name: Security vulnerability scan
       run: |
-        pip install safety
         safety check --json || echo "Safety check completed with warnings"
 
     - name: SAST with Bandit
       run: |
-        pip install bandit
         bandit -r src/ -f json -o bandit-report.json || echo "Bandit scan completed"
 
     - name: License compliance check
       run: |
-        pip install pip-licenses
         pip-licenses --format=json --output-file=licenses.json
         echo "License compliance check completed"
 
