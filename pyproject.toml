@@ -35,6 +35,7 @@ dev = [
     "isort>=5.12.0",
     "mypy>=1.5.0",
     "ruff>=0.1.0",
+    "flake8>=6.0.0",
 ]
 security = [
     "safety>=2.3.0",
