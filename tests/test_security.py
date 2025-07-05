@@ -12,7 +12,7 @@ import json
 import os
 import stat
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import Generator
 
 
 class TestSecurity:
@@ -243,34 +243,19 @@ class TestSecurity:
 class TestInputValidation:
     """Test input validation and sanitization."""
     
-    def test_path_traversal_protection(self):
+    def test_path_traversal_protection(self) -> None:
         """Test protection against path traversal attacks."""
         # This test would be specific to your application's file handling
         # For now, it's a placeholder that demonstrates the concept
         
-        malicious_paths = [
-            "../../../etc/passwd",
-            "..\\..\\..\\windows\\system32\\config\\sam",
-            "/etc/shadow",
-            "C:\\Windows\\System32\\config\\SAM",
-            "../../../../proc/self/environ",
-        ]
-        
-        # If your application has file path handling, test it here
-        # For now, we'll just document that this should be implemented
+        # Example malicious paths that should be blocked
+        # These would be tested against your actual file handling logic
         print("📝 Path traversal protection tests should be implemented based on your file handling logic")
     
-    def test_command_injection_protection(self):
+    def test_command_injection_protection(self) -> None:
         """Test protection against command injection."""
         # If your application executes system commands, test with malicious input
-        malicious_commands = [
-            "; ls -la",
-            "| cat /etc/passwd",
-            "&& rm -rf /",
-            "$(whoami)",
-            "`id`",
-        ]
-        
+        # Example malicious commands that should be blocked
         print("📝 Command injection protection tests should be implemented if executing system commands")
 
 
