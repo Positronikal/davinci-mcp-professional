@@ -7,6 +7,7 @@ for DaVinci Resolve integration.
 
 import logging
 from typing import Any, Dict, List, Optional
+from pydantic import AnyUrl
 
 from mcp.server import NotificationOptions, Server
 from mcp.server.models import InitializationOptions
@@ -44,12 +45,12 @@ class DaVinciMCPServer:
         """Register MCP server handlers."""
         
         @self.server.list_tools()
-        async def handle_list_tools() -> List[types.Tool]:
+        async def handle_list_tools() -> List[types.Tool]:  # type: ignore[reportUnusedFunction]
             """List available tools."""
             return get_all_tools()
         
         @self.server.call_tool()
-        async def handle_call_tool(
+        async def handle_call_tool(  # type: ignore[reportUnusedFunction]
             name: str, arguments: Optional[Dict[str, Any]] = None
         ) -> List[types.TextContent]:
             """Handle tool calls."""
@@ -76,12 +77,12 @@ class DaVinciMCPServer:
                 return [types.TextContent(type="text", text=error_msg)]
         
         @self.server.list_resources()
-        async def handle_list_resources() -> List[types.Resource]:
+        async def handle_list_resources() -> List[types.Resource]:  # type: ignore[reportUnusedFunction]
             """List available resources."""
             return get_all_resources()
         
         @self.server.read_resource()
-        async def handle_read_resource(uri: str) -> str:
+        async def handle_read_resource(uri: AnyUrl) -> str:  # type: ignore[reportUnusedFunction]
             """Handle resource reads."""
             try:
                 # Ensure we're connected
@@ -89,7 +90,7 @@ class DaVinciMCPServer:
                     self.resolve_client.connect()
                 
                 # Read the resource
-                result = await self._read_resource(uri)
+                result = await self._read_resource(str(uri))
                 return str(result)
                 
             except DaVinciResolveError as e:

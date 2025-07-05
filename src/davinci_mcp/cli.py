@@ -6,7 +6,6 @@ import asyncio
 import logging
 import sys
 import os
-from typing import Optional
 
 import click
 from colorama import init as init_colorama, Fore, Style
@@ -18,7 +17,6 @@ if os.name == 'nt':  # Windows
     # Don't modify stdout/stderr if they might be used by MCP stdio
     if hasattr(sys.stdout, 'isatty') and sys.stdout.isatty():
         try:
-            import codecs
             # Store original stdout/stderr in case we need them
             _original_stdout = sys.stdout
             _original_stderr = sys.stderr

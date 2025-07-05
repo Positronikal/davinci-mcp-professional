@@ -5,7 +5,7 @@ Platform detection and environment setup utilities.
 import os
 import sys
 import platform
-from typing import Dict, Optional
+from typing import Dict
 from pathlib import Path
 
 

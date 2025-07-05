@@ -6,7 +6,11 @@ and logging.
 """
 
 import logging
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    # Import for type checking only to avoid runtime import issues
+    from .types import DaVinciResolveApp, DaVinciProjectManager, DaVinciProject
 
 from .utils.platform import setup_resolve_environment, check_resolve_running
 
@@ -38,9 +42,9 @@ class DaVinciResolveClient:
     """
     
     def __init__(self) -> None:
-        self._resolve: Optional[Any] = None
-        self._project_manager: Optional[Any] = None
-        self._current_project: Optional[Any] = None
+        self._resolve: Optional["DaVinciResolveApp"] = None
+        self._project_manager: Optional["DaVinciProjectManager"] = None
+        self._current_project: Optional["DaVinciProject"] = None
         self._is_connected = False
         
     def connect(self) -> None:
@@ -59,21 +63,21 @@ class DaVinciResolveClient:
         
         try:
             # Import and connect to Resolve
-            import DaVinciResolveScript as dvr_script
-            self._resolve = dvr_script.scriptapp("Resolve")
+            import DaVinciResolveScript as dvr_script  # type: ignore[reportMissingImports]
+            self._resolve = dvr_script.scriptapp("Resolve")  # type: ignore[reportUnknownMemberType]
             
             if self._resolve is None:
                 raise DaVinciResolveConnectionError(
                     "Failed to get Resolve object. Check that DaVinci Resolve is running."
-                )
+                )  # type: ignore[reportUnknownMemberType]
             
             # Get project manager
-            self._project_manager = self._resolve.GetProjectManager()
+            self._project_manager = self._resolve.GetProjectManager()  # type: ignore[reportUnknownMemberType]
             if self._project_manager is None:
                 raise DaVinciResolveConnectionError("Failed to get Project Manager.")
             
             # Get current project if one is open
-            self._current_project = self._project_manager.GetCurrentProject()
+            self._current_project = self._project_manager.GetCurrentProject()  # type: ignore[reportUnknownMemberType]
             
             self._is_connected = True
             logger.info(f"Connected to {self.get_version()}")
@@ -205,12 +209,14 @@ class DaVinciResolveClient:
         project = self._ensure_project()
         
         timeline_count = project.GetTimelineCount()
-        timelines = []
+        timelines: List[str] = []
         
         for i in range(1, timeline_count + 1):
             timeline = project.GetTimelineByIndex(i)
             if timeline:
-                timelines.append(timeline.GetName())
+                name = timeline.GetName()
+                if isinstance(name, str):
+                    timelines.append(name)
         
         return timelines
     
@@ -271,13 +277,14 @@ class DaVinciResolveClient:
         if not clips:
             return []
         
-        result = []
+        result: List[Dict[str, Any]] = []
         for clip in clips:
-            result.append({
+            clip_info = {
                 "name": clip.GetName(),
                 "duration": clip.GetDuration(),
                 "fps": clip.GetClipProperty("FPS") or "Unknown"
-            })
+            }
+            result.append(clip_info)
         
         return result
     

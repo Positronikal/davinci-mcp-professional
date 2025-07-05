@@ -87,6 +87,36 @@ warn_unused_configs = true
 disallow_untyped_defs = true
 check_untyped_defs = true
 
+[tool.pyright]
+pythonVersion = "3.9"
+typeCheckingMode = "strict"
+reportMissingImports = true
+reportMissingTypeStubs = false
+reportUnusedImport = true
+reportUnusedVariable = true
+reportDuplicateImport = true
+reportUntypedFunctionDecorator = true
+reportUntypedClassDecorator = true
+reportUntypedBaseClass = true
+reportUntypedNamedTuple = true
+reportPrivateUsage = true
+reportConstantRedefinition = true
+reportIncompatibleMethodOverride = true
+reportIncompatibleVariableOverride = true
+reportInconsistentConstructor = true
+exclude = [
+    "**/__pycache__",
+    "**/node_modules",
+    ".venv",
+    "lib",
+    "build",
+    "dist"
+]
+include = [
+    "src",
+    "tests"
+]
+
 [tool.ruff]
 line-length = 88
 target-version = "py39"
