@@ -1,0 +1,35 @@
+# Bandit configuration for static application security testing (SAST)
+[bandit]
+
+# Test IDs to skip (comma-separated)
+# B101: Test for use of assert
+# B601: Test for shell injection within Paramiko
+skips = ["B101"]
+
+# Test IDs to include (comma-separated)
+# If specified, only these tests will be run
+# tests = ["B201", "B301"]
+
+# Paths to exclude from scanning
+exclude_dirs = [
+    "./tests",
+    "./lib", 
+    "./.venv",
+    "./build",
+    "./dist"
+]
+
+# Confidence levels: LOW, MEDIUM, HIGH
+confidence = "MEDIUM"
+
+# Severity levels: LOW, MEDIUM, HIGH  
+severity = "MEDIUM"
+
+# Output format: csv, custom, html, json, screen, txt, xml, yaml
+format = "json"
+
+# Output file (optional)
+output = "bandit-report.json"
+
+# Include line numbers in output
+include_line_numbers = true

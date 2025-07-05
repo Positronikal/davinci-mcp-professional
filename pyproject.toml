@@ -1,12 +1,11 @@
 [project]
 name = "davinci-mcp-professional"
-version = "2.1.0"
+version = "2.2.1"
 description = "Model Context Protocol server for DaVinci Resolve integration"
 readme = "README.md"
 license = { text = "MIT" }
 authors = [
-    { name = "Samuel Gursky", email = "samgursky@gmail.com" },
-    { name = "Hoyt", email = "hoyt@example.com" }
+    { name = "Hoyt Harness", email = "hoyt.harness@gmail.com" }
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -31,19 +30,26 @@ dependencies = [
 dev = [
     "pytest>=7.0.0",
     "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0.0",
     "black>=23.0.0",
     "isort>=5.12.0",
     "mypy>=1.5.0",
     "ruff>=0.1.0",
+]
+security = [
+    "safety>=2.3.0",
+    "bandit>=1.7.5",
+    "pip-licenses>=4.3.0",
+    "semgrep>=1.45.0",
 ]
 
 [project.scripts]
 davinci-mcp = "davinci_mcp.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/samuelgursky/davinci-resolve-mcp"
-Repository = "https://github.com/samuelgursky/davinci-resolve-mcp"
-Issues = "https://github.com/samuelgursky/davinci-resolve-mcp/issues"
+Homepage = "https://github.com/Positronikal/davinci-mcp-professional"
+Repository = "https://github.com/Positronikal/davinci-mcp-professional"
+Issues = "https://github.com/Positronikal/davinci-mcp-professional/issues"
 
 [build-system]
 requires = ["hatchling"]
@@ -56,10 +62,14 @@ packages = ["src/davinci_mcp"]
 dev-dependencies = [
     "pytest>=7.0.0",
     "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0.0",
     "black>=23.0.0",
     "isort>=5.12.0",
     "mypy>=1.5.0",
     "ruff>=0.1.0",
+    "safety>=2.3.0",
+    "bandit>=1.7.5",
+    "pip-licenses>=4.3.0",
 ]
 
 [tool.black]

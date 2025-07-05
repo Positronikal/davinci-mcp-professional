@@ -91,6 +91,14 @@ venv.bak/
 logs/*
 !logs/.gitkeep
 
+# Security scan reports and artifacts
+bandit-report.json
+safety-report.json
+licenses.json
+security-audit-report.txt
+security-audit-results.json
+*.sarif
+
 # Any backup directories
 *_backup/
 

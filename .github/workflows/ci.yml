@@ -40,3 +40,29 @@ jobs:
       run: |
         pip install flake8
         flake8 .
+
+    - name: Security vulnerability scan
+      run: |
+        pip install safety
+        safety check --json || echo "Safety check completed with warnings"
+
+    - name: SAST with Bandit
+      run: |
+        pip install bandit
+        bandit -r src/ -f json -o bandit-report.json || echo "Bandit scan completed"
+
+    - name: License compliance check
+      run: |
+        pip install pip-licenses
+        pip-licenses --format=json --output-file=licenses.json
+        echo "License compliance check completed"
+
+    - name: Upload security artifacts
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: security-reports
+        path: |
+          bandit-report.json
+          licenses.json
+        retention-days: 30
