@@ -13,23 +13,13 @@ def get_all_tools() -> List[types.Tool]:
         types.Tool(
             name="get_version",
             description="Get DaVinci Resolve version information",
-            inputSchema={
-                "type": "object",
-                "properties": {},
-                "required": []
-            }
+            inputSchema={"type": "object", "properties": {}, "required": []},
         ),
-        
         types.Tool(
-            name="get_current_page", 
+            name="get_current_page",
             description="Get the current page open in DaVinci Resolve (Edit, Color, Fusion, etc.)",
-            inputSchema={
-                "type": "object",
-                "properties": {},
-                "required": []
-            }
+            inputSchema={"type": "object", "properties": {}, "required": []},
         ),
-        
         types.Tool(
             name="switch_page",
             description="Switch to a specific page in DaVinci Resolve",
@@ -39,34 +29,31 @@ def get_all_tools() -> List[types.Tool]:
                     "page": {
                         "type": "string",
                         "description": "The page to switch to",
-                        "enum": ["media", "cut", "edit", "fusion", "color", "fairlight", "deliver"]
+                        "enum": [
+                            "media",
+                            "cut",
+                            "edit",
+                            "fusion",
+                            "color",
+                            "fairlight",
+                            "deliver",
+                        ],
                     }
                 },
-                "required": ["page"]
-            }
+                "required": ["page"],
+            },
         ),
-        
         # Project tools
         types.Tool(
             name="list_projects",
             description="List all available projects in the current database",
-            inputSchema={
-                "type": "object",
-                "properties": {},
-                "required": []
-            }
+            inputSchema={"type": "object", "properties": {}, "required": []},
         ),
-        
         types.Tool(
             name="get_current_project",
             description="Get the name of the currently open project",
-            inputSchema={
-                "type": "object", 
-                "properties": {},
-                "required": []
-            }
+            inputSchema={"type": "object", "properties": {}, "required": []},
         ),
-        
         types.Tool(
             name="open_project",
             description="Open a project by name",
@@ -75,13 +62,12 @@ def get_all_tools() -> List[types.Tool]:
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "The name of the project to open"
+                        "description": "The name of the project to open",
                     }
                 },
-                "required": ["name"]
-            }
+                "required": ["name"],
+            },
         ),
-        
         types.Tool(
             name="create_project",
             description="Create a new project with the given name",
@@ -90,34 +76,23 @@ def get_all_tools() -> List[types.Tool]:
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "The name for the new project"
+                        "description": "The name for the new project",
                     }
                 },
-                "required": ["name"]
-            }
+                "required": ["name"],
+            },
         ),
-        
         # Timeline tools
         types.Tool(
             name="list_timelines",
             description="List all timelines in the current project",
-            inputSchema={
-                "type": "object",
-                "properties": {},
-                "required": []
-            }
+            inputSchema={"type": "object", "properties": {}, "required": []},
         ),
-        
         types.Tool(
             name="get_current_timeline",
             description="Get the name of the current timeline",
-            inputSchema={
-                "type": "object",
-                "properties": {},
-                "required": []
-            }
+            inputSchema={"type": "object", "properties": {}, "required": []},
         ),
-        
         types.Tool(
             name="create_timeline",
             description="Create a new timeline with the given name",
@@ -126,13 +101,12 @@ def get_all_tools() -> List[types.Tool]:
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "The name for the new timeline"
+                        "description": "The name for the new timeline",
                     }
                 },
-                "required": ["name"]
-            }
+                "required": ["name"],
+            },
         ),
-        
         types.Tool(
             name="switch_timeline",
             description="Switch to a timeline by name",
@@ -141,24 +115,18 @@ def get_all_tools() -> List[types.Tool]:
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "The name of the timeline to switch to"
+                        "description": "The name of the timeline to switch to",
                     }
                 },
-                "required": ["name"]
-            }
+                "required": ["name"],
+            },
         ),
-        
         # Media tools
         types.Tool(
             name="list_media_clips",
             description="List all clips in the media pool",
-            inputSchema={
-                "type": "object",
-                "properties": {},
-                "required": []
-            }
+            inputSchema={"type": "object", "properties": {}, "required": []},
         ),
-        
         types.Tool(
             name="import_media",
             description="Import a media file into the media pool",
@@ -167,10 +135,10 @@ def get_all_tools() -> List[types.Tool]:
                 "properties": {
                     "file_path": {
                         "type": "string",
-                        "description": "The path to the media file to import"
+                        "description": "The path to the media file to import",
                     }
                 },
-                "required": ["file_path"]
-            }
+                "required": ["file_path"],
+            },
         ),
     ]
