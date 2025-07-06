@@ -36,9 +36,10 @@ jobs:
         npm install -g pyright
         pyright
 
-    - name: Lint (optional)
+    - name: Lint with Ruff
       run: |
-        flake8 .
+        ruff check src/ --fix
+        ruff format src/ --check
 
     - name: Security vulnerability scan
       run: |

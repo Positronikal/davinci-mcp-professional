@@ -5,6 +5,9 @@ Pytest configuration for DaVinci MCP Professional test suite.
 import pytest
 import sys
 from pathlib import Path
+from typing import Generator, Any
+from _pytest.config import Config
+from _pytest.nodes import Item
 
 # Add the src directory to Python path for imports
 project_root = Path(__file__).parent.parent
@@ -13,19 +16,19 @@ sys.path.insert(0, str(src_path))
 
 
 @pytest.fixture(scope="session")
-def project_root():
+def project_root() -> Path:
     """Provide the project root directory path."""
     return Path(__file__).parent.parent
 
 
 @pytest.fixture(scope="session")
-def src_directory():
+def src_directory() -> Path:
     """Provide the source code directory path."""
     return Path(__file__).parent.parent / "src"
 
 
 @pytest.fixture
-def temp_config_file(tmp_path):
+def temp_config_file(tmp_path: Path) -> Path:
     """Create a temporary configuration file for testing."""
     config_content = """
     {
@@ -39,7 +42,7 @@ def temp_config_file(tmp_path):
 
 
 # Configure pytest markers
-def pytest_configure(config):
+def pytest_configure(config: Config) -> None:
     """Configure custom pytest markers."""
     config.addinivalue_line(
         "markers", "security: mark test as security-related"
@@ -53,10 +56,10 @@ def pytest_configure(config):
 
 
 # Skip tests that require external dependencies if not available
-def pytest_collection_modifyitems(config, items):
+def pytest_collection_modifyitems(config: Config, items: list[Item]) -> None:
     """Modify test collection to handle conditional skipping."""
     try:
-        import safety
+        import safety  # type: ignore[import-untyped]
     except ImportError:
         safety_skip = pytest.mark.skip(reason="safety not installed")
         for item in items:
@@ -64,7 +67,7 @@ def pytest_collection_modifyitems(config, items):
                 item.add_marker(safety_skip)
     
     try:
-        import bandit
+        import bandit  # type: ignore[import-untyped]
     except ImportError:
         bandit_skip = pytest.mark.skip(reason="bandit not installed")
         for item in items:

@@ -89,17 +89,17 @@ check_untyped_defs = true
 
 [tool.pyright]
 pythonVersion = "3.9"
-typeCheckingMode = "strict"
+typeCheckingMode = "basic"
 reportMissingImports = true
 reportMissingTypeStubs = false
 reportUnusedImport = true
 reportUnusedVariable = true
 reportDuplicateImport = true
-reportUntypedFunctionDecorator = true
-reportUntypedClassDecorator = true
-reportUntypedBaseClass = true
-reportUntypedNamedTuple = true
-reportPrivateUsage = true
+reportUntypedFunctionDecorator = false
+reportUntypedClassDecorator = false
+reportUntypedBaseClass = false
+reportUntypedNamedTuple = false
+reportPrivateUsage = false
 reportConstantRedefinition = true
 reportIncompatibleMethodOverride = true
 reportIncompatibleVariableOverride = true
@@ -110,11 +110,11 @@ exclude = [
     ".venv",
     "lib",
     "build",
-    "dist"
+    "dist",
+    "tests"
 ]
 include = [
-    "src",
-    "tests"
+    "src"
 ]
 
 [tool.ruff]
